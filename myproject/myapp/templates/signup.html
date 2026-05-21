@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Signup{% endblock %}
+{% block content %}
+<h2>Sign Up</h2>
+
+{% if error %}
+<div class="error">
+  {% for key, value in error.items %}
+    <p>{{ value }}</p>
+  {% endfor %}
+</div>
+{% endif %}
+
+<form method="POST">
+  {% csrf_token %}
+  <label>Username:</label>
+  <input type="text" name="name" required>
+
+  <label>Email:</label>
+  <input type="email" name="email" required>
+
+  <label>Password:</label>
+  <input type="password" name="password" required>
+
+  <label>Confirm Password:</label>
+  <input type="password" name="confirm_password" required>
+
+  <label>Phone:</label>
+  <input type="text" name="phone" maxlength="10" minlength="10" required>
+
+  <button type="submit">Submit</button>
+</form>
+
+<p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+{% endblock %}

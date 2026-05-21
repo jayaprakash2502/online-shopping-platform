@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Orders - My Shop</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: linear-gradient(120deg, #89f7fe, #66a6ff);
+      color: #333;
+    }
+
+    /* HEADER */
+    header {
+      position: sticky;
+      top: 0;
+      background: linear-gradient(90deg, #0052d4, #4364f7, #6fb1fc);
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 40px;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.2);
+      z-index: 100;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .user-info span {
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    .user-info strong {
+      color: #ffe766;
+      font-weight: 600;
+    }
+
+    .user-info a {
+      text-decoration: none;
+      color: #fff;
+      background: rgba(255, 255, 255, 0.15);
+      padding: 8px 15px;
+      border-radius: 10px;
+      transition: 0.3s;
+      font-weight: 500;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    .user-info a:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: translateY(-2px);
+    }
+
+    /* MAIN CONTENT */
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+
+    .order-container {
+      max-width: 1150px;
+      margin: 40px auto;
+      background: #fff;
+      border-radius: 15px;
+      padding: 35px 25px;
+      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
+      animation: fadeIn 0.6s ease;
+    }
+
+    h2 {
+      text-align: center;
+      color: #0057ff;
+      margin-bottom: 30px;
+      font-size: 26px;
+    }
+
+    /* TABLE STYLE */
+    ul {
+      width: 100%;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+
+    ul li {
+      display: grid;
+      grid-template-columns: 100px 2fr 1fr 1fr 1fr 1.5fr 1fr;
+      align-items: center;
+      gap: 30px;
+      padding: 16px 25px;
+      border-bottom: 1px solid #e3e3e3;
+      border-radius: 10px;
+      background: #fafcff;
+      transition: 0.3s;
+    }
+
+    ul li:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(102, 166, 255, 0.3);
+    }
+
+    ul li:first-child {
+      background: linear-gradient(90deg, #66a6ff, #89f7fe);
+      color: white;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      box-shadow: none;
+    }
+
+    ul li img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 10px;
+      border: 2px solid #66a6ff;
+    }
+
+    h3 {
+      font-size: 16px;
+      margin: 0;
+      color: #222;
+    }
+
+    p {
+      margin: 0;
+      font-size: 15px;
+    }
+
+    /* STATUS COLORS */
+    .status-pending {
+      color: #ff4747;
+      font-weight: 600;
+      text-transform: capitalize;
+      text-align: center;
+    }
+
+    .status-delivered {
+      color: #12c85a;
+      font-weight: 600;
+      text-transform: capitalize;
+      text-align: center;
+    }
+
+    /* BACK BUTTON */
+    .back-home {
+      display: block;
+      width: fit-content;
+      margin: 35px auto 0;
+      padding: 12px 25px;
+      background: linear-gradient(90deg, #66a6ff, #89f7fe);
+      color: white;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: 0.3s;
+      font-size: 16px;
+    }
+
+    .back-home:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(102, 166, 255, 0.5);
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      background: #f8f8f8;
+      padding: 15px;
+      font-size: 14px;
+      color: #555;
+      margin-top: auto;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      ul li {
+        grid-template-columns: 80px 1fr 1fr;
+        grid-template-rows: auto auto auto;
+        padding: 12px;
+        gap: 10px;
+      }
+      ul li:first-child {
+        display: none;
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>My Shop</h1>
+    <div class="user-info">
+      {% if request.session.customer_name %}
+      <span>Welcome, <strong>{{ request.session.customer_name }}</strong></span>
+      <a href="{% url 'home' %}">Home</a>
+      <a href="{% url 'logout' %}">Logout</a>
+      {% endif %}
+    </div>
+  </header>
+
+  <main>
+    <div class="order-container">
+      <h2>Your Orders</h2>
+
+      {% if order_products %}
+      <ul>
+        <li>
+          <span>Image</span>
+          <span>Product Name</span>
+          <span>Price</span>
+          <span>Quantity</span>
+          <span>Total</span>
+          <span>Order Time</span>
+          <span>Status</span>
+        </li>
+        {% for item in order_products %}
+        <li>
+          <img src="{{ item.product.image.url }}" alt="{{ item.product.product_name }}">
+          <h3>{{ item.product.product_name }}</h3>
+          <p>₹{{ item.product.price }}</p>
+          <p>{{ item.quantity }}</p>
+          <p>₹{{ item.total_price }}</p>
+          <p>{{ item.order_date }}</p>
+          {% if item.delivered == "pending" %}
+          <p class="status-pending">{{ item.delivered }}</p>
+          {% else %}
+          <p class="status-delivered">{{ item.delivered }}</p>
+          {% endif %}
+        </li>
+        {% endfor %}
+      </ul>
+      {% else %}
+      <p style="text-align:center; font-size:16px; color:#333;">No orders found.</p>
+      {% endif %}
+
+      
+    </div>
+  </main>
+
+  <footer>
+    © 2025 My Shop | All Rights Reserved
+  </footer>
+</body>
+</html>

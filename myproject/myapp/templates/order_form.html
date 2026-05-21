@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Complete Your Order - My Shop</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(120deg, #a1c4fd, #c2e9fb);
+      margin: 0;
+      padding: 0;
+      color: #333;
+      animation: fadeIn 1s ease-in;
+    }
+
+    /* Header */
+    header {
+      position: sticky;
+      top: 0;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      padding: 15px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+      border-bottom: 2px solid rgba(102,166,255,0.3);
+    }
+
+    header h1 {
+      margin: 0;
+      color: #0057ff;
+      font-size: 28px;
+      letter-spacing: 1px;
+      font-weight: 700;
+    }
+
+    header div a {
+      text-decoration: none;
+      color: white;
+      font-weight: 600;
+      margin-left: 8px;
+      padding: 8px 14px;
+      background: linear-gradient(90deg, #66a6ff, #89f7fe);
+      border-radius: 10px;
+      transition: 0.3s;
+      box-shadow: 0 3px 8px rgba(102,166,255,0.4);
+    }
+
+    header div a:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 12px rgba(102,166,255,0.6);
+    }
+
+    /* Main Form Section */
+    .form-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 80vh;
+      padding: 40px 20px;
+    }
+
+    .form-container {
+      background: #fff;
+      width: 100%;
+      max-width: 500px;
+      padding: 40px 35px;
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      animation: slideUp 0.8s ease;
+    }
+
+    .form-container h2 {
+      text-align: center;
+      color: #0057ff;
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    .form-container p {
+      text-align: center;
+      color: #666;
+      font-size: 15px;
+      margin-bottom: 25px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    label {
+      text-align: left;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 3px;
+    }
+
+    input {
+      padding: 12px 14px;
+      border: 1.5px solid #bcd2ff;
+      border-radius: 10px;
+      font-size: 15px;
+      font-family: inherit;
+      outline: none;
+      transition: 0.3s;
+    }
+
+    input:focus {
+      border-color: #66a6ff;
+      box-shadow: 0 0 6px rgba(102, 166, 255, 0.4);
+    }
+
+    button {
+      margin-top: 15px;
+      background: linear-gradient(90deg, #66a6ff, #89f7fe);
+      color: white;
+      font-size: 17px;
+      font-weight: 600;
+      border: none;
+      border-radius: 12px;
+      padding: 12px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(102, 166, 255, 0.5);
+    }
+
+    /* Footer */
+    footer {
+      background: rgba(255,255,255,0.9);
+      backdrop-filter: blur(10px);
+      text-align: center;
+      padding: 20px 0;
+      box-shadow: 0 -4px 15px rgba(0,0,0,0.1);
+      border-top: 2px solid rgba(102,166,255,0.3);
+      font-size: 15px;
+      margin-top: 40px;
+    }
+
+    footer a {
+      text-decoration: none;
+      color: #0057ff;
+      margin: 0 8px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    footer a:hover {
+      color: #003da6;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+
+    @keyframes slideUp {
+      from {transform: translateY(30px); opacity: 0;}
+      to {transform: translateY(0); opacity: 1;}
+    }
+
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+      }
+      header h1 {
+        font-size: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>My Shop</h1>
+    <div>
+      <a href="{% url 'home' %}">Home</a>
+      <a href="{% url 'orders_page' %}">My Orders</a>
+      <a href="{% url 'cart_item' %}">View Cart</a>
+    </div>
+  </header>
+
+  <div class="form-wrapper">
+    <div class="form-container">
+      <h2>Complete Your Order</h2>
+      <p>Fill in your delivery details to place your order.</p>
+
+      <form method="POST" action="{% url 'order_form' %}">
+        {% csrf_token %}
+        
+        <label>Name:</label>
+        <input type="text" name="name" required maxlength="50">
+
+        <label>Contact No:</label>
+        <input type="text" minlength="10" maxlength="10" required name="contact_no">
+
+        <label>Alternate No:</label>
+        <input type="text" minlength="10" maxlength="10" placeholder="Optional" name="alternate_no">
+
+        <label>Home or Office Plot No:</label>
+        <input type="number" required name="plot_no">
+
+        <label>Street Address:</label>
+        <input type="text" name="streetaddress" required>
+
+        <label>City:</label>
+        <input type="text" name="city" required>
+
+        <label>Pincode:</label>
+        <input type="number" name="pincode" required>
+
+        <button type="submit">Place Order</button>
+      </form>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2025 My Shop. All Rights Reserved.</p>
+    <p>
+      <a href="#">About</a> |
+      <a href="#">Privacy Policy</a> |
+      <a href="#">Terms & Conditions</a>
+    </p>
+  </footer>
+
+</body>
+</html>

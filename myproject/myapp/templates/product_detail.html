@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Product Details - My Shop</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: linear-gradient(120deg, #89f7fe, #66a6ff);
+      color: #333;
+      animation: fadeIn 0.8s ease-in;
+    }
+
+    /* HEADER */
+    header {
+      position: sticky;
+      top: 0;
+      background: linear-gradient(90deg, #0052d4, #4364f7, #6fb1fc);
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 40px;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.2);
+      z-index: 100;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .user-info span {
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    .user-info strong {
+      color: #ffe766;
+      font-weight: 600;
+    }
+
+    .user-info a {
+      text-decoration: none;
+      color: #fff;
+      background: rgba(255, 255, 255, 0.15);
+      padding: 8px 15px;
+      border-radius: 10px;
+      transition: 0.3s;
+      font-weight: 500;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    .user-info a:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: translateY(-2px);
+    }
+
+    /* MAIN CONTENT */
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+
+    h2.page-title {
+      text-align: center;
+      color: #fff;
+      margin: 40px 0 20px;
+      font-size: 30px;
+      font-weight: 700;
+      text-shadow: 1px 2px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    .product-container {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      background: #fff;
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      max-width: 1000px;
+      margin: 0 auto 60px;
+      gap: 40px;
+      animation: slideUp 0.8s ease;
+    }
+
+    .image-section img {
+      width: 360px;
+      height: 360px;
+      object-fit: cover;
+      border-radius: 16px;
+      border: 3px solid rgba(102, 166, 255, 0.4);
+      box-shadow: 0 6px 18px rgba(102, 166, 255, 0.3);
+      transition: transform 0.4s ease;
+    }
+
+    .image-section img:hover {
+      transform: scale(1.05);
+    }
+
+    .details-section {
+      flex: 1;
+      color: #333;
+      padding-right: 10px;
+    }
+
+    .details-section h3 {
+      margin-top: 0;
+      font-size: 26px;
+      color: #111;
+      font-weight: 700;
+    }
+
+    .details-section p {
+      margin: 10px 0;
+      font-size: 17px;
+      line-height: 1.6;
+      color: #444;
+    }
+
+    .description {
+      margin-top: 15px;
+      background: rgba(255, 255, 255, 0.7);
+      padding: 12px 15px;
+      border-radius: 10px;
+      border-left: 5px solid #66a6ff;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    }
+
+    .price-tag {
+      display: inline-block;
+      background: linear-gradient(90deg, #66a6ff, #89f7fe);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 16px;
+      font-weight: 600;
+      box-shadow: 0 3px 8px rgba(102, 166, 255, 0.4);
+      margin-top: 10px;
+    }
+
+    .add-btn {
+      display: inline-block;
+      margin-top: 25px;
+      background: linear-gradient(90deg, #66a6ff, #89f7fe);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 16px;
+      transition: 0.3s ease;
+      box-shadow: 0 4px 10px rgba(102, 166, 255, 0.4);
+    }
+
+    .add-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 16px rgba(102, 166, 255, 0.6);
+    }
+
+    .back-container {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .back-btn {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.9);
+      color: #333;
+      padding: 10px 22px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 600;
+      border: 2px solid rgba(102, 166, 255, 0.3);
+      transition: 0.3s ease;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .back-btn:hover {
+      background: linear-gradient(90deg, #66a6ff, #89f7fe);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 12px rgba(102, 166, 255, 0.5);
+    }
+
+    footer {
+      text-align: center;
+      background: #f8f8f8;
+      padding: 15px;
+      font-size: 14px;
+      color: #555;
+      margin-top: auto;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(40px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    @media (max-width: 900px) {
+      .product-container {
+        flex-direction: column;
+        align-items: center;
+        padding: 25px;
+      }
+
+      .image-section img {
+        width: 100%;
+        max-width: 350px;
+        height: auto;
+      }
+
+      .details-section {
+        text-align: center;
+        padding: 0;
+      }
+
+      .description {
+        text-align: left;
+      }
+    }
+    
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>My Shop</h1>
+    <div class="user-info">
+      {% if request.session.customer_name %}
+      <span>Welcome, <strong>{{ request.session.customer_name }}</strong></span>
+      <a href="{% url 'home' %}" class="home-btn">Home</a>
+      <a href="{% url 'logout' %}">Logout</a>
+      
+      {% endif %}
+      {% if not request.session.customer_name %}
+      <a href="{% url 'home' %}" class="home-btn">Home</a>
+      <a href="{% url 'login' %}">Login</a>
+      {% endif %}
+    </div>
+     
+
+  </header>
+
+  <main>  
+    <h2 class="page-title">Product Details</h2>
+
+    {% for product in products %}
+    <div class="product-container">
+      <div class="image-section">
+        <img src="{{ product.image.url }}" alt="{{ product.product_name }}">
+      </div>
+
+      <div class="details-section">
+        <h3>{{ product.product_name }}</h3>
+        <p><strong>Category:</strong> {{ product.category }}</p>
+        <p class="price-tag">₹{{ product.price }}</p>
+        <p class="description"><strong>Description:</strong> {{ product.description }}</p>
+
+        <a href="{% url 'addtocart' %}?product_id={{product.id}}" class="add-btn">🛒 Add to Cart</a>
+        
+      </div>
+    </div>
+    {% endfor %}
+
+    <div class="back-container">
+
+    </div>
+  </main>
+
+  <footer>
+    © 2025 My Shop | All Rights Reserved
+  </footer>
+</body>
+</html>

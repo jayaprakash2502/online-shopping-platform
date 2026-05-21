@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Cart - My Shop</title>
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      margin: 0;
+      background: linear-gradient(120deg, #89f7fe, #66a6ff);
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh; /* ensures full viewport height */
+    }
+
+    /* HEADER */
+    header {
+      background: linear-gradient(90deg, #0052d4, #4364f7, #6fb1fc);
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 40px;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.2);
+      z-index: 100;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 28px;
+      letter-spacing: 1px;
+      font-weight: 700;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .user-info span {
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    .user-info strong {
+      color: #ffe766;
+    }
+
+    .user-info a {
+      text-decoration: none;
+      color: #fff;
+      background: rgba(255,255,255,0.15);
+      padding: 8px 15px;
+      border-radius: 10px;
+      transition: 0.3s;
+      font-weight: 500;
+    }
+
+    .user-info a:hover {
+      background: rgba(255,255,255,0.3);
+      transform: translateY(-2px);
+    }
+
+    /* MAIN CONTAINER */
+    .cart-container {
+      max-width: 1150px;
+      width: 100%;
+      margin: 40px auto;
+      background: #fff;
+      border-radius: 15px;
+      padding: 35px 25px;
+      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
+      flex-grow: 1; /* this pushes footer down */
+      animation: fadeIn 0.6s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    h2 {
+      text-align: center;
+      color: #0057ff;
+      margin-bottom: 30px;
+      font-size: 26px;
+    }
+
+    /* CART LIST */
+    ul {
+      width: 100%;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+
+    ul li {
+      display: grid;
+      grid-template-columns: 100px 2fr 1fr 1fr 1fr 1fr;
+      align-items: center;
+      gap: 25px;
+      padding: 16px 25px;
+      border-bottom: 1px solid #e3e3e3;
+      background: #fafcff;
+      border-radius: 10px;
+      transition: 0.3s;
+    }
+
+    ul li:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(102, 166, 255, 0.3);
+    }
+
+    ul li:first-child {
+      background: linear-gradient(90deg, #66a6ff, #89f7fe);
+      color: white;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    ul li img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 10px;
+      border: 2px solid #66a6ff;
+    }
+
+    h3 {
+      margin: 0;
+      font-size: 16px;
+      color: #222;
+    }
+
+    p {
+      margin: 0;
+      font-size: 15px;
+    }
+
+    /* BUTTON STYLES */
+    ul li a {
+      display: inline-block;
+      padding: 5px 10px;
+      border-radius: 6px;
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+
+    ul li a[href*="increase"] {
+      background: #00b894;
+    }
+
+    ul li a[href*="decrease"] {
+      background: #ff6b6b;
+    }
+
+    ul li a:hover {
+      opacity: 0.9;
+      transform: scale(1.05);
+    }
+
+    /* GRAND TOTAL */
+    .grand-total {
+      text-align: right;
+      font-size: 20px;
+      margin-top: 25px;
+      font-weight: 700;
+      color: #0057ff;
+    }
+
+    /* BUTTONS BELOW CART */
+    .cart-actions {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 30px;
+    }
+
+    .cart-actions a {
+      padding: 12px 25px;
+      background: linear-gradient(90deg, #66a6ff, #89f7fe);
+      color: white;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+
+    .cart-actions a:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(102, 166, 255, 0.5);
+    }
+
+    footer {
+      text-align: center;
+      background: #f8f8f8;
+      padding: 15px;
+      font-size: 14px;
+      color: #555;
+      margin-top: auto; /* ensures footer stays bottom */
+      border-top: 1px solid #ddd;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      ul li {
+        grid-template-columns: 80px 1fr 1fr;
+        grid-template-rows: auto auto auto;
+        gap: 10px;
+        padding: 12px;
+      }
+      ul li:first-child {
+        display: none;
+      }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <h1>My Shop</h1>
+    <div class="user-info">
+      {% if request.session.customer_name %}
+      <span>Welcome, <strong>{{ request.session.customer_name }}</strong></span>
+      <a href="{% url 'home' %}">Home</a>
+      <a href="{% url 'logout' %}">Logout</a>
+      {% endif %}
+    </div>
+  </header>
+
+  <!-- CART -->
+  <div class="cart-container">
+    <h2>Your Cart</h2>
+
+    {% if cart_items %}
+    <ul>
+      <li>
+        <span>Image</span>
+        <span>Product Name</span>
+        <span>Price</span>
+        <span>Quantity</span>
+        <span>Total</span>
+        <span>Update</span>
+      </li>
+      {% for item in cart_items %}
+      <li>
+        <img src="{{ item.product.image.url }}" alt="{{ item.product.product_name }}">
+        <h3>{{ item.product.product_name }}</h3>
+        <p>₹{{ item.product.price }}</p>
+        <p>{{ item.quantity }}</p>
+        <p>₹{{ item.total_price }}</p>
+        <span>
+          <a href="{% url 'update_quantity' %}?productid_increase={{item.id}}">+</a>
+          <a href="{% url 'update_quantity' %}?productid_decrease={{item.id}}">-</a>
+        </span>
+      </li>
+      {% endfor %}
+    </ul>
+
+    <div class="grand-total">Grand Total: ₹{{ totalprice }}</div>
+
+    <div class="cart-actions">
+      <a href="{% url 'check_out' %}">Proceed to Checkout</a>
+      <a href="{% url 'home' %}">← Back to Home</a>
+    </div>
+
+    {% else %}
+    <p style="text-align:center; font-size:18px; color:#444;">Your cart is empty 🛒</p>
+    {% endif %}
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    © 2025 My Shop | All Rights Reserved
+  </footer>
+
+</body>
+</html>

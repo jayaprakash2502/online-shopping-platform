@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SonicWave</title>
+  <style>
+    /* Global styles */
+    body {
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(120deg, #a1c4fd, #c2e9fb);
+      margin: 0;
+      padding: 0;
+      color: #333;
+      animation: fadeIn 1s ease-in;
+    }
+
+    /* HEADER */
+    /* HEADER */
+header {
+  position: sticky;
+  top: 0;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+  padding: 15px 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 100;
+  border-bottom: 3px solid transparent;
+  border-image: linear-gradient(to right, #66a6ff, #89f7fe);
+  border-image-slice: 1;
+}
+
+/* My Shop title */
+header h1 {
+  font-size: 32px;
+  font-weight: 700;
+  color: #0057ff;
+  letter-spacing: 1px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+header h1::before {
+  content: "🛍️";
+  font-size: 28px;
+  color: #66a6ff;
+}
+
+/* Header right section */
+header div {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+/* Welcome text improved */
+.welcome-text {
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  background: linear-gradient(90deg, #0057ff, #00c6ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 1px 4px rgba(102,166,255,0.4);
+  animation: glow 3s ease-in-out infinite alternate;
+}
+
+/* Buttons */
+header a {
+  text-decoration: none;
+  color: #0066ff;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 10px;
+  transition: 0.3s ease;
+  border: 1.5px solid #66a6ff;
+  background: transparent;
+}
+
+header a:hover {
+  background: linear-gradient(90deg, #66a6ff, #89f7fe);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(102, 166, 255, 0.5);
+}
+
+/* Welcome text glowing animation */
+@keyframes glow {
+  from {
+    text-shadow: 0 0 8px rgba(102, 166, 255, 0.3);
+  }
+  to {
+    text-shadow: 0 0 16px rgba(102, 166, 255, 0.6);
+  }
+}
+
+    /* Header right side */
+    header div {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+/* Welcome text improved */
+.welcome-text {
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  background: linear-gradient(90deg, #0057ff, #00c6ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 1px 4px rgba(102,166,255,0.4);
+  animation: glow 3s ease-in-out infinite alternate;
+}
+    header span {
+      font-size: 15px;
+      color: #0044aa;
+      font-weight: 500;
+      background: linear-gradient(90deg, #89f7fe, #66a6ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    header a {
+  text-decoration: none;
+  color: #0066ff;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 10px;
+  transition: 0.3s ease;
+  border: 1.5px solid #66a6ff;
+  background: transparent;
+}
+
+header a:hover {
+  background: linear-gradient(90deg, #66a6ff, #89f7fe);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(102, 166, 255, 0.5);
+}
+
+    /* Category & Products Container */
+    .container {
+      display: flex;
+      gap: 30px;
+      padding: 30px 40px;
+    }
+
+    /* Categories box */
+    .categories {
+  flex: 1;
+  max-width: 270px;
+  background: rgba(255,255,255,0.9);
+  border-radius: 20px;
+  padding: 25px 20px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  height: fit-content;
+  border: 1px solid rgba(255,255,255,0.4);
+
+  position: sticky;   /* ADD THIS */
+  top: 110px;         /* ADJUST BASED ON HEADER HEIGHT */
+  z-index: 50;        /* ENSURES IT STAYS ABOVE BACKGROUND */
+}
+
+
+    .categories h2 {
+      text-align: center;
+      color: #0044aa;
+      margin-bottom: 20px;
+      font-size: 22px;
+      position: relative;
+    }
+
+    .categories h2::after {
+      content: "";
+      position: absolute;
+      bottom: -6px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, #66a6ff, #89f7fe);
+      border-radius: 3px;
+    }
+
+    .categories ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .categories li {
+      margin: 10px 0;
+      border-radius: 12px;
+      padding: 10px 14px;
+      background: white;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+      transition: 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .categories li:hover {
+      background: linear-gradient(90deg, #66a6ff, #89f7fe);
+      color: white;
+      transform: translateX(6px);
+    }
+
+    .categories a {
+      color: #333;
+      text-decoration: none;
+      font-weight: 500;
+      width: 100%;
+      transition: 0.3s;
+    }
+
+    .categories li:hover a {
+      color: white;
+    }
+
+    /* Products section */
+    .products {
+      flex: 3;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 30px;
+    }
+
+    .product-card {
+      background: rgba(255,255,255,0.95);
+      border-radius: 18px;
+      padding: 18px;
+      box-shadow: 0 8px 22px rgba(0,0,0,0.15);
+      text-align: center;
+      transition: 0.3s;
+    }
+
+    .product-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.25);
+    }
+
+    .product-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 15px;
+      transition: 0.4s ease;
+    }
+
+    .product-card:hover img {
+      transform: scale(1.05);
+    }
+
+    .product-card h3 {
+      margin: 12px 0 6px;
+      font-size: 18px;
+      color: #0044aa;
+    }
+
+    .price-tag {
+      background: linear-gradient(90deg, #66a6ff, #89f7fe);
+      color: white;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 14px;
+      margin-bottom: 10px;
+      display: inline-block;
+    }
+
+    a.addcart, a.view {
+      background: linear-gradient(90deg, #66a6ff, #89f7fe);
+      color: white;
+      padding: 9px 15px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 500;
+      display: inline-block;
+      margin: 5px;
+      transition: 0.3s;
+    }
+
+    a.view:hover, a.addcart:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 12px #66a6ff;
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 40px;
+      background: rgba(255,255,255,0.9);
+      text-align: center;
+      padding: 20px 0;
+      box-shadow: 0 -4px 15px rgba(0,0,0,0.1);
+      border-top: 2px solid rgba(102,166,255,0.3);
+      font-size: 15px;
+    }
+
+    footer a {
+      text-decoration: none;
+      color: #007bff;
+      margin: 0 8px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    footer a:hover {
+      color: #0056b3;
+    }
+
+   /* Search Bar Styling */
+.search-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 20px 0 30px;
+}
+
+.search-container form {
+  display: flex;
+  width: 60%;
+  max-width: 600px;
+  background: white;
+  padding: 6px;
+  border-radius: 50px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  border: 1px solid rgba(102,166,255,0.5);
+}
+
+.search-container input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 12px 18px;
+  font-size: 16px;
+  border-radius: 50px;
+  font-weight: 500;
+  color: #333;
+}
+
+.search-container button {
+  background: linear-gradient(90deg, #66a6ff, #89f7fe);
+  border: none;
+  padding: 12px 25px;
+  font-size: 16px;
+  color: white;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.search-container button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 12px rgba(102,166,255,0.6);
+}
+
+
+    /* Animations */
+    @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        padding: 20px;
+      }
+      .container {
+        flex-direction: column;
+        padding: 20px;
+      }
+      .categories {
+        max-width: 100%;
+        margin-bottom: 20px;
+      }
+
+      @keyframes glow {
+  from {
+    text-shadow: 0 0 8px rgba(102, 166, 255, 0.3);
+  }
+  to {
+    text-shadow: 0 0 16px rgba(102, 166, 255, 0.6);
+  }
+}
+    }
+  </style>
+</head>
+
+
+<body>
+
+  <header>
+    <h1>SonicWave</h1>
+
+    <div>
+      {% if request.session.customer_name %}
+      <span class="welcome-text">Welcome, <strong>{{ request.session.customer_name }}</strong></span>
+      <a href="{% url 'logout' %}">Logout</a>
+      <a href="{% url 'orders_page' %}">My Orders</a>
+      <a href="{% url 'cart_item' %}">View Cart</a>
+      {% else %}
+      <a href="{% url 'signup' %}">Signup</a>
+      <a href="{% url 'login' %}">Login</a>
+      {% endif %}
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="categories">
+      <h2>Categories</h2>
+      <ul>
+        <li><a href="/">All Categories</a></li>
+        {% for cat in category %}
+        <li><a href="/?category_id={{cat.id}}">{{cat.category_name}}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div style="flex: 3;">
+      <div class="search-container">
+        <form method="GET" action="/">
+          <input type="text" name="search" placeholder="Search products..." value="{{ request.GET.search }}">
+          <button type="submit">Search</button>
+        </form>
+
+        
+        
+      </div>
+      
+
+      <center><h1 style="color:#0044aa;">Products</h1></center>
+      
+      <div class="products">
+        {% for product in products %}
+        <div class="product-card">
+          <img src="{{ product.image.url }}" alt="{{ product.product_name }}">
+          <h3>{{ product.product_name }}</h3>
+          <span class="price-tag">₹{{ product.price }}</span>
+          <p>Premium quality and trusted by our users.</p>
+          <div>
+            <a href="{% url 'product_detail' %}?product_id={{product.id}}" class="view">View</a>
+            <a href="{% url 'addtocart' %}?product_id={{product.id}}" class="addcart">Add to Cart</a>
+          </div>
+        </div>
+        {% endfor %}
+
+
+        
+      </div>
+      
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2025 SonicWave. All Rights Reserved.</p>
+    <p>
+      <a href="#">About</a> |
+      <a href="#">Contact</a> |
+      <a href="#">Privacy Policy</a>
+    </p>
+  </footer>
+
+</body>
+
+
+</html>
