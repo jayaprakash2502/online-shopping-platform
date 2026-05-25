@@ -1,25 +1,32 @@
 {% extends "base.html" %}
-{% block title %}Login{% endblock %}
+{% block title %}Login — SonicWave{% endblock %}
 {% block content %}
-<h2>Login</h2>
+
+<h2>Welcome Back</h2>
+<p class="subtitle">Sign in to your account</p>
 
 {% if error %}
-<div class="error">{{ error }}</div>
+<div class="alert-error"><i class="bi bi-exclamation-circle me-2"></i>{{ error }}</div>
 {% endif %}
 {% if pass_error %}
-<div class="error">{{ pass_error }}</div>
+<div class="alert-error"><i class="bi bi-lock me-2"></i>{{ pass_error }}</div>
 {% endif %}
 
 <form method="POST">
   {% csrf_token %}
-  <label>Email:</label>
-  <input type="email" name="email" required>
-
-  <label>Password:</label>
-  <input type="password" name="password" required>
-
-  <button type="submit">Submit</button>
+  <div class="form-group">
+    <label>Email</label>
+    <input type="email" name="email" placeholder="you@example.com" required>
+  </div>
+  <div class="form-group">
+    <label>Password</label>
+    <input type="password" name="password" placeholder="••••••••" required>
+  </div>
+  <button type="submit" class="btn-primary-gold">Sign In</button>
 </form>
 
-<p>Don’t have an account? <a href="{% url 'signup' %}">Sign Up</a></p>
+<div class="auth-footer">
+  Don't have an account? <a href="{% url 'signup' %}">Create one</a>
+</div>
+
 {% endblock %}

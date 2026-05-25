@@ -1,116 +1,230 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='0.9em' font-size='90'%3E🎧%3C/text%3E%3C/svg%3E">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{% block title %}My Shop{% endblock %}</title>
+  <title>{% block title %}SonicWave{% endblock %}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
   <style>
+    :root {
+      --gold: #c9a84c;
+      --gold-light: #e8c96d;
+      --gold-dim: rgba(201,168,76,0.15);
+      --navy: #0a0f1e;
+      --navy-mid: #111827;
+      --navy-light: #1a2340;
+      --glass: rgba(255,255,255,0.05);
+      --glass-border: rgba(255,255,255,0.1);
+      --text-primary: #f0f0f0;
+      --text-muted: #8a95a8;
+      --danger: #e05b5b;
+      --success: #4ade80;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(120deg, #89f7fe, #66a6ff);
-      color: #333;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      font-family: 'DM Sans', sans-serif;
+      background: var(--navy);
+      color: var(--text-primary);
       min-height: 100vh;
+      display: flex;
       flex-direction: column;
-      margin: 0;
-      animation: fadeIn 1s ease-in;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      position: relative;
+      overflow-x: hidden;
     }
 
-    .container {
-      background: rgba(255, 255, 255, 0.95);
-      border-radius: 20px;
-      padding: 35px 40px;
-      width: 370px;
-      text-align: center;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-      animation: slideUp 0.8s ease;
+    body::before {
+      content: '';
+      position: fixed;
+      top: -200px; left: -200px;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
     }
 
-    h2 {
-      margin-bottom: 20px;
-      font-size: 22px;
-      color: #2d2d2d;
+    body::after {
+      content: '';
+      position: fixed;
+      bottom: -200px; right: -200px;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(59,130,246,0.06) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
     }
 
-    input, button {
+    .auth-card {
+      background: var(--navy-light);
+      border: 1px solid var(--glass-border);
+      border-radius: 24px;
+      padding: 48px 44px;
       width: 100%;
-      padding: 10px;
-      margin: 8px 0;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      outline: none;
-      font-size: 15px;
-      transition: 0.3s;
+      max-width: 440px;
+      position: relative;
+      z-index: 1;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(201,168,76,0.1);
+      animation: cardReveal 0.7s cubic-bezier(0.22,1,0.36,1) both;
     }
 
-    input:focus {
-      border-color: #66a6ff;
-      box-shadow: 0 0 6px #66a6ff;
+    .auth-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%; transform: translateX(-50%);
+      width: 60%; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
     }
 
-    button {
-      background: linear-gradient(90deg, #66a6ff, #89f7fe);
-      color: white;
-      font-weight: bold;
-      border: none;
-      cursor: pointer;
-      transition: 0.3s;
+    .brand-logo {
+      text-align: center;
+      margin-bottom: 32px;
     }
 
-    button:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 10px #66a6ff;
+    .brand-logo .icon {
+      width: 56px; height: 56px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      border-radius: 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      margin-bottom: 12px;
+      box-shadow: 0 8px 24px rgba(201,168,76,0.3);
     }
 
-    a {
-      color: #3f2b96;
-      text-decoration: none;
-      transition: 0.3s;
-      font-weight: 500;
+    .brand-logo h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      color: var(--gold);
+      letter-spacing: 2px;
     }
 
-    a:hover {
-      text-decoration: underline;
+    .auth-card h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+      text-align: center;
     }
 
-    .error {
-      color: #d8000c;
-      background: #ffbaba;
-      padding: 8px 10px;
-      border-radius: 6px;
-      margin-bottom: 10px;
+    .auth-card .subtitle {
+      text-align: center;
+      color: var(--text-muted);
       font-size: 14px;
+      margin-bottom: 28px;
     }
 
-    img {
-      width: 100px;
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 13px 16px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      color: var(--text-primary);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      transition: all 0.3s;
+      outline: none;
+    }
+
+    .form-group input:focus {
+      border-color: var(--gold);
+      background: rgba(201,168,76,0.05);
+      box-shadow: 0 0 0 3px rgba(201,168,76,0.1);
+    }
+
+    .form-group input::placeholder { color: #3a4558; }
+
+    .btn-primary-gold {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      color: var(--navy);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      letter-spacing: 0.5px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-top: 8px;
+    }
+
+    .btn-primary-gold:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(201,168,76,0.4);
+    }
+
+    .btn-primary-gold:active { transform: translateY(0); }
+
+    .auth-footer {
+      text-align: center;
+      margin-top: 24px;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .auth-footer a {
+      color: var(--gold);
+      text-decoration: none;
+      font-weight: 600;
+      transition: 0.2s;
+    }
+
+    .auth-footer a:hover { color: var(--gold-light); text-decoration: underline; }
+
+    .alert-error {
+      background: rgba(224,91,91,0.1);
+      border: 1px solid rgba(224,91,91,0.3);
       border-radius: 10px;
-      margin-bottom: 5px;
+      padding: 12px 16px;
+      color: #f87171;
+      font-size: 14px;
+      margin-bottom: 20px;
     }
 
-    ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
+    @keyframes cardReveal {
+      from { opacity: 0; transform: translateY(30px) scale(0.97); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
     }
 
-    @keyframes fadeIn {
-      from {opacity: 0;}
-      to {opacity: 1;}
-    }
-
-    @keyframes slideUp {
-      from {transform: translateY(30px); opacity: 0;}
-      to {transform: translateY(0); opacity: 1;}
+    @media (max-width: 480px) {
+      .auth-card { padding: 36px 24px; }
     }
   </style>
+  {% block extra_head %}{% endblock %}
 </head>
 <body>
-  <div class="container">
-    {% block content %}
-    {% endblock %}
+  {% block body %}
+  <div class="auth-card">
+    <div class="brand-logo">
+      <div class="icon">🎧</div>
+      <h1>SonicWave</h1>
+    </div>
+    {% block content %}{% endblock %}
   </div>
+  {% endblock %}
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
