@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-gunicorn products.wsgi:application
+gunicorn myproject.wsgi:application
